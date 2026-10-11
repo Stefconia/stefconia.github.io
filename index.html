@@ -606,7 +606,7 @@
         } else if (activePositions.length === 0) {
           showEndScreen();
         }
-      }, 16000);
+      }, 10000);
     }
 
     function showEndScreen() {
@@ -619,12 +619,12 @@
 
     setTimeout(() => {
       runBoxLoop('quoteBox0');
-      setTimeout(() => runBoxLoop('quoteBox1'), 3200);
+      setTimeout(() => runBoxLoop('quoteBox1'), 2000);
       if (!isMobile) {
-        setTimeout(() => runBoxLoop('quoteBox2'), 6400);
-        setTimeout(() => runBoxLoop('quoteBox3'), 9600);
+        setTimeout(() => runBoxLoop('quoteBox2'), 4400);
+        setTimeout(() => runBoxLoop('quoteBox3'), 6600);
       }
-    }, 4000);
+    }, 3500);
 
     function showLegalPage(id) {
       document.getElementById(id).style.display = 'block';
