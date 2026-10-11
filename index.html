@@ -559,7 +559,7 @@
       { top: '90%', left: '95%', transform: 'translate(-100%, -100%)' }
     ];
 
-    const MAX_RUNS = 10;
+    const MAX_RUNS = 7;
     let quotesShownCount = 0;
     let currentQuoteIndex = 0;
     let activePositions = [];
@@ -597,7 +597,7 @@
 
       setTimeout(() => {
         box.classList.remove('visible');
-      }, 12000);
+      }, 16000);
 
       setTimeout(() => {
         freePositionIndex(posIdx);
@@ -619,12 +619,12 @@
 
     setTimeout(() => {
       runBoxLoop('quoteBox0');
-      setTimeout(() => runBoxLoop('quoteBox1'), 2000);
+      setTimeout(() => runBoxLoop('quoteBox1'), 3200);
       if (!isMobile) {
-        setTimeout(() => runBoxLoop('quoteBox2'), 4400);
-        setTimeout(() => runBoxLoop('quoteBox3'), 6600);
+        setTimeout(() => runBoxLoop('quoteBox2'), 6400);
+        setTimeout(() => runBoxLoop('quoteBox3'), 9600);
       }
-    }, 3500);
+    }, 4000);
 
     function showLegalPage(id) {
       document.getElementById(id).style.display = 'block';
