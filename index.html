@@ -1,1 +1,637 @@
-test
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Titel & Beschreibung für Google -->
+  <title>Zarq – Deine tägliche Dosis Sarkasmus & Humor App</title>
+  <meta name="description" content="Hol dir Zarq - die Zarqasmus App für Android im Google Play Store! Täglich neue sarkastische Sprüche, schwarzer Humor und lustige Zitate für deinen Alltag.">
+  <meta name="keywords" content="Zarq, Zarqasmus, Zarqasmus App, Sarkasmus App, Sarkastische Sprüche, Demotivierende Sprüche, Schwarzer Humor, Lustige Sprüche, Kalender Sprüche, Anti-Motivation, Google Play Store">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Social Media Vorschau (WhatsApp, Facebook etc.) -->
+  <meta property="og:title" content="Zarq – Deine tägliche Dosis Sarkasmus">
+  <meta property="og:description" content="Täglich sarkastische Sprüche und schwarzer Humor direkt auf dein Smartphone. Jetzt im Google Play Store herunterladen!">
+  <meta property="og:image" content="icon.png">
+  <meta property="og:type" content="website">
+
+  <!-- Schema.org Strukturierte Daten für Google (App-Anzeige) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zarq - Sarkastische Sprüche",
+    "operatingSystem": "Android",
+    "applicationCategory": "EntertainmentApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "installUrl": "https://play.google.com/store/apps/details?id=de.stefconia.zarq",
+    "description": "Zarq liefert deine tägliche Dosis Sarkasmus und humorvolle Sprüche."
+  }
+  </script>
+
+  /* bangers-regular - latin */
+  @font-face {
+    font-display: swap;
+    font-family: 'Bangers';
+    font-style: normal;
+    font-weight: 400;
+    src: url('bangers-v25-latin-regular.woff2') format('woff2');
+  }
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #050505;
+      color: #ffffff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Für Suchmaschinen sichtbarer, aber visuell versteckter Text */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Container für das Logo in der Mitte */
+    .icon-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22vw;
+      height: 22vw;
+      max-width: 280px;
+      max-height: 280px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: fadeInIcon 3s ease-in-out 1s forwards;
+      z-index: 10;
+      pointer-events: none;
+      transition: width 2s ease-in-out, height 2s ease-in-out, max-width 2s ease-in-out, max-height 2s ease-in-out, z-index 0.5s;
+    }
+
+    .icon-container.enlarged {
+      width: 38vw;
+      height: 38vw;
+      max-width: 480px;
+      max-height: 480px;
+      z-index: 40;
+    }
+
+    .icon-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 30px rgba(213, 0, 0, 0.5));
+    }
+
+    @keyframes fadeInIcon {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    /* Styling für Sprüche-Boxen */
+    .quote-box {
+      position: absolute;
+      background: linear-gradient(135deg, rgba(30, 30, 30, 0.96), rgba(15, 15, 15, 0.96));
+      color: #ffffff;
+      padding: 16px 20px;
+      border-radius: 18px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      width: 380px;
+      max-width: 32vw;
+      font-size: 1.6rem;
+      font-weight: 800;
+      line-height: 1.3;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.2);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+      text-align: center;
+
+      -webkit-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+      word-break: normal;
+      overflow-wrap: normal;
+      white-space: normal;
+      transition: opacity 2.5s ease-in-out;
+    }
+
+    .quote-box.visible {
+      opacity: 1;
+      transform: var(--base-transform) scale(1) translateY(0) !important;
+      animation: floatQuote 4s ease-in-out infinite alternate !important;
+    }
+
+    .quote-box:not(.visible) {
+      transform: var(--base-transform) scale(0.6) translateY(20px) !important;
+    }
+
+    @keyframes floatQuote {
+      0% { transform: var(--base-transform) scale(1) translateY(0); }
+      100% { transform: var(--base-transform) scale(1) translateY(-6px); }
+    }
+
+    /* End-Screen Container */
+    .promo-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 50px 20px 80px 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2.5s ease-in-out;
+      z-index: 50;
+    }
+
+    .promo-container.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .comic-heading {
+      font-family: 'Bangers', cursive, fantasy;
+      font-size: 4.2rem;
+      color: #FFD700;
+      text-align: center;
+      letter-spacing: 2px;
+      text-shadow: 
+        -3px -3px 0 #D32F2F,  
+         3px -3px 0 #D32F2F,
+        -3px  3px 0 #D32F2F,
+         3px  3px 0 #D32F2F,
+        -5px  0px 0 #D32F2F,
+         5px  0px 0 #D32F2F,
+         0px -5px 0 #D32F2F,
+         0px  5px 0 #D32F2F,
+         0px 12px 25px rgba(0,0,0,0.9);
+      line-height: 1.1;
+      animation: floatTitle 3.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatTitle {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.02); }
+    }
+
+    .app-link {
+      font-family: 'Bangers', cursive, fantasy;
+      font-size: 2.3rem;
+      color: #ffffff;
+      background: linear-gradient(180deg, #E53935 0%, #C62828 100%);
+      padding: 14px 42px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 25px rgba(229, 57, 53, 0.7), 0 8px 25px rgba(0, 0, 0, 0.8);
+      border: 3px solid #FFD700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-block;
+      animation: pulseBtn 1.8s infinite;
+    }
+
+    @keyframes pulseBtn {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.06); box-shadow: 0 0 40px rgba(229, 57, 53, 0.95), 0 10px 30px rgba(0, 0, 0, 0.8); }
+      100% { transform: scale(1); }
+    }
+
+    .app-link:hover {
+      transform: scale(1.12) !important;
+      background: linear-gradient(180deg, #FF1744 0%, #D50000 100%);
+    }
+
+    /* Footer Links – Absolut frei und klickbar am Boden */
+    footer {
+      position: fixed;
+      bottom: 8px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 300;
+      pointer-events: auto;
+      background: linear-gradient(to top, rgba(5,5,5,0.9), transparent);
+      padding-top: 10px;
+    }
+
+    footer a {
+      color: #bbbbbb;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin: 0 16px;
+      transition: color 0.2s ease;
+      font-weight: 600;
+      display: inline-block;
+      padding: 4px 8px;
+    }
+
+    footer a:hover {
+      color: #FFD700;
+      text-decoration: underline;
+    }
+
+    /* Inline-Seiten (Impressum, Datenschutz & Kontaktformular) */
+    .legal-page {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0a0a0a;
+      color: #dddddd;
+      z-index: 500;
+      padding: 50px 20px;
+      overflow-y: auto;
+    }
+
+    .legal-content {
+      max-width: 850px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .legal-content h2 {
+      color: #ffffff;
+      font-size: 2.2rem;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #D32F2F;
+      padding-bottom: 8px;
+    }
+
+    .legal-content h3 {
+      color: #FFD700;
+      font-size: 1.3rem;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 25px;
+      padding: 10px 22px;
+      background-color: #222222;
+      color: #ffffff;
+      border: 1px solid #444444;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #333333;
+      border-color: #FFD700;
+    }
+
+    /* Styling für das Kontaktformular */
+    .contact-form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 600px;
+    }
+
+    .contact-form label {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background-color: #1a1a1a;
+      border: 1px solid #333333;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #FFD700;
+    }
+
+    .submit-btn {
+      align-self: flex-start;
+      padding: 12px 30px;
+      background-color: #D32F2F;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #E53935;
+    }
+
+    /* Optimiertes Layout für Smartphones */
+    @media (max-width: 768px) {
+      .quote-box {
+        font-size: clamp(0.8rem, 3.2vw, 0.95rem); 
+        padding: 10px 12px;
+        width: 90vw;
+        max-width: 90vw;
+        line-height: 1.25;
+        border-radius: 12px;
+      }
+
+      .comic-heading {
+        font-size: 2.2rem;
+      }
+
+      .app-link {
+        font-size: 1.4rem;
+        padding: 12px 28px;
+      }
+
+      .icon-container {
+        width: 34vw;
+        height: 34vw;
+      }
+
+      .icon-container.enlarged {
+        width: 56vw;
+        height: 56vw;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SEO-Header für Google Bot (unsichtbar für den Nutzer) -->
+  <h1 class="sr-only">Zarq – Sarkasmus App &amp; Lustige Sprüche im Google Play Store</h1>
+
+  <!-- Icon in der Mitte -->
+  <div class="icon-container" id="iconContainer">
+    <img src="icon.png" alt="Zarq App Logo">
+  </div>
+
+  <!-- Boxen für Sprüche -->
+  <div id="quoteBox0" class="quote-box"></div>
+  <div id="quoteBox1" class="quote-box"></div>
+  <div id="quoteBox2" class="quote-box"></div>
+  <div id="quoteBox3" class="quote-box"></div>
+
+  <!-- End-Screen Überlagerung -->
+  <div class="promo-container" id="promoContainer">
+    <h1 class="comic-heading">Deine tägliche Dosis Zarqasmus</h1>
+    <a class="app-link" href="https://play.google.com/store/apps/details?id=de.stefconia.zarq" target="_blank" rel="noopener noreferrer" title="Zarq App im Google Play Store herunterladen">
+      Hol dir die APP
+    </a>
+  </div>
+
+  <!-- Footer Links (Sofort sichtbar & klickbar) -->
+  <footer>
+    <a href="#impressum" onclick="showLegalPage('impressumPage')">Impressum</a>
+    <a href="#datenschutz" onclick="showLegalPage('datenschutzPage')">Datenschutzerklärung</a>
+  </footer>
+
+  <!-- RECHTSSICHERES IMPRESSUM MIT KONTAKTFORMULAR -->
+  <div id="impressumPage" class="legal-page">
+    <div class="legal-content">
+      <span class="back-btn" onclick="hideLegalPage('impressumPage')">&larr; Zurück zur Seite</span>
+      <h2>Impressum</h2>
+      
+      <h3>Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)</h3>
+      <p>
+        Stefan Schirmel<br>
+        Am Vorholz 6<br>
+        95709 Tröstau<br>
+        Deutschland
+      </p>
+
+      <h3>Kontakt</h3>
+      <p>
+        E-Mail: stefconia@schirmel.com<br>
+        Oder direkt über das untenstehende Kontaktformular.
+      </p>
+
+      <h3>Kontaktformular</h3>
+      <form class="contact-form" action="mailto:stefconia@schirmel.com" method="post" enctype="text/plain">
+        <div>
+          <label for="name">Ihr Name:</label>
+          <input type="text" id="name" name="Name" required placeholder="Vor- und Nachname">
+        </div>
+        <div>
+          <label for="email">Ihre E-Mail-Adresse:</label>
+          <input type="email" id="email" name="Absender-Email" required placeholder="name@beispiel.de">
+        </div>
+        <div>
+          <label for="message">Ihre Nachricht:</label>
+          <textarea id="message" name="Nachricht" rows="5" required placeholder="Geben Sie hier Ihre Nachricht ein..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Nachricht absenden</button>
+      </form>
+
+      <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
+      <p>
+        Stefan Schirmel<br>
+        Am Vorholz 6<br>
+        95709 Tröstau
+      </p>
+
+      <h3>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h3>
+      <p>
+        Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+      </p>
+    </div>
+  </div>
+
+  <!-- RECHTSSICHERE DATENSCHUTZERKLÄRUNG -->
+  <div id="datenschutzPage" class="legal-page">
+    <div class="legal-content">
+      <span class="back-btn" onclick="hideLegalPage('datenschutzPage')">&larr; Zurück zur Seite</span>
+      <h2>Datenschutzerklärung</h2>
+
+      <h3>1. Datenschutz auf einen Blick</h3>
+      <p><strong>Allgemeine Hinweise:</strong> Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+
+      <h3>2. Hosting und Server-Log-Dateien</h3>
+      <p>Unsere Website wird auf Servern der Alfahosting GmbH gehostet. Beim Aufruf dieser Website erfasst der Provider automatisch Informationen in sogenannten Server-Log-Dateien, die Ihr Browser übermittelt. Dies sind:</p>
+      <ul style="margin-left: 20px; margin-top: 5px;">
+        <li>Browsertyp und Browserversion</li>
+        <li>Verwendetes Betriebssystem</li>
+        <li>Referrer URL (die zuvor besuchte Seite)</li>
+        <li>Hostname des zugreifenden Rechners</li>
+        <li>Uhrzeit der Serveranfrage</li>
+        <li>IP-Adresse (ggf. anonymisiert)</li>
+      </ul>
+      <p style="margin-top: 10px;">Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse an der technisch fehlerfreien Darstellung und der Optimierung seiner Website.</p>
+
+      <h3>3. Verantwortliche Stelle</h3>
+      <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:</p>
+      <p style="margin-top: 5px;">
+        Stefan Schirmel<br>
+        Am Vorholz 6<br>
+        95709 Tröstau<br>
+        E-Mail: stefconia@schirmel.com
+      </p>
+
+      <h3>4. Kontaktformular</h3>
+      <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO).</p>
+
+      <h3>5. Ihre Betroffenenrechte (Art. 15–21 DSGVO)</h3>
+      <p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten.</p>
+
+      <h3>6. Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
+      <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde zu.</p>
+
+      <h3>7. Cookies &amp; Tracking</h3>
+      <p>Diese Website setzt keine Tracking-Cookies, Analysedienste oder Werbenetzwerke ein. Ein Cookie-Banner ist daher technisch nicht erforderlich.</p>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "Dein Kalender ist leerer als dein Blick am Montagmorgen.",
+      "Kein Termin in Sicht. Die Welt hat offensichtlich gelernt, nichts mehr von dir zu erwarten.",
+      "Der Sonntag ist kein Ruhetag. Er ist der Pufferzone-Tag des schlechten Gewissens.",
+      "Schau nicht auf die Uhr. Jeder Zeigerdruck bringt dich dem Montag unaufhaltsam näher.",
+      "Termin Zahnarzt steht an. Hättest du besser geputzt, müsstest du jetzt nicht schwitzen.",
+      "Du wartest auf den zweiten Produktivitätsschub. Der wartet nicht auf dich.",
+      "Dein Gehirn läuft im Energiesparmodus. Leider ohne Energie zu sparen.",
+      "Der Tag zieht sich. Wahrscheinlich aus gutem Grund.",
+      "Du schaust öfter auf die Uhr als auf deine Aufgaben.",
+      "Falls du heute noch etwas schaffen wolltest: viel Erfolg beim Wollen."
+    ];
+
+    const isMobile = window.innerWidth <= 768;
+    
+    // Auf Mobilgeräten bleiben die Sprüche ganz oben und ganz unten, mit viel Abstand zum Logo
+    const positions = isMobile ? [
+      { top: '4%', left: '50%', transform: 'translateX(-50%)' },
+      { top: '83%', left: '50%', transform: 'translate(-50%, -100%)' },
+      { top: '14%', left: '50%', transform: 'translateX(-50%)' },
+      { top: '72%', left: '50%', transform: 'translate(-50%, -100%)' }
+    ] : [
+      { top: '6%', left: '50%', transform: 'translateX(-50%)' },
+      { top: '94%', left: '50%', transform: 'translate(-50%, -100%)' },
+      { top: '50%', left: '3%', transform: 'translateY(-50%)' },
+      { top: '50%', left: '97%', transform: 'translate(-100%, -50%)' },
+      { top: '10%', left: '5%', transform: 'translate(0, 0)' },
+      { top: '10%', left: '95%', transform: 'translate(-100%, 0)' },
+      { top: '90%', left: '5%', transform: 'translate(0, -100%)' },
+      { top: '90%', left: '95%', transform: 'translate(-100%, -100%)' }
+    ];
+
+    const MAX_RUNS = 10;
+    let quotesShownCount = 0;
+    let currentQuoteIndex = 0;
+    let activePositions = [];
+
+    function getFreePositionIndex() {
+      const available = positions
+        .map((_, idx) => idx)
+        .filter(idx => !activePositions.includes(idx));
+
+      const chosen = available[Math.floor(Math.random() * available.length)];
+      activePositions.push(chosen);
+      return chosen;
+    }
+
+    function freePositionIndex(index) {
+      activePositions = activePositions.filter(idx => idx !== index);
+    }
+
+    function runBoxLoop(boxId) {
+      if (quotesShownCount >= MAX_RUNS) return;
+      
+      quotesShownCount++;
+      const box = document.getElementById(boxId);
+      const posIdx = getFreePositionIndex();
+      const pos = positions[posIdx];
+
+      box.style.top = pos.top;
+      box.style.left = pos.left;
+      box.style.setProperty('--base-transform', pos.transform);
+
+      box.textContent = quotes[currentQuoteIndex];
+      currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+
+      box.classList.add('visible');
+
+      setTimeout(() => {
+        box.classList.remove('visible');
+      }, 12000);
+
+      setTimeout(() => {
+        freePositionIndex(posIdx);
+        if (quotesShownCount < MAX_RUNS) {
+          runBoxLoop(boxId);
+        } else if (activePositions.length === 0) {
+          showEndScreen();
+        }
+      }, 16000);
+    }
+
+    function showEndScreen() {
+      document.getElementById('iconContainer').classList.add('enlarged');
+
+      setTimeout(() => {
+        document.getElementById('promoContainer').classList.add('visible');
+      }, 800);
+    }
+
+    setTimeout(() => {
+      runBoxLoop('quoteBox0');
+      setTimeout(() => runBoxLoop('quoteBox1'), 3200);
+      if (!isMobile) {
+        setTimeout(() => runBoxLoop('quoteBox2'), 6400);
+        setTimeout(() => runBoxLoop('quoteBox3'), 9600);
+      }
+    }, 4000);
+
+    function showLegalPage(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function hideLegalPage(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
