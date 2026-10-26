@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
+<html lang="de"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO Titel & Beschreibung für Google -->
-  <title>Zarq – Deine tägliche Dosis Sarkasmus & Humor App</title>
+  <title>Zarq – Deine tägliche Dosis Sarkasmus &amp; Humor App</title>
   <meta name="description" content="Hol dir Zarq - die Zarqasmus App für Android im Google Play Store! Täglich neue sarkastische Sprüche, schwarzer Humor und lustige Zitate für deinen Alltag.">
   <meta name="keywords" content="Zarq, Zarqasmus, Zarqasmus App, Sarkasmus App, Sarkastische Sprüche, Demotivierende Sprüche, Schwarzer Humor, Lustige Sprüche, Kalender Sprüche, Anti-Motivation, Google Play Store">
   <meta name="robots" content="index, follow">
@@ -115,6 +115,52 @@
       to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
 
+    /* Früher Hinweis unter dem Logo (perfekt unter dem Logo platziert ohne es zu verdecken) */
+    .early-promo-link {
+      position: absolute;
+      top: calc(50% + 145px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Bangers', cursive, fantasy;
+      font-size: 2.1rem;
+      color: #ffffff;
+      background: linear-gradient(180deg, #E53935 0%, #C62828 100%);
+      padding: 10px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 25px rgba(229, 57, 53, 0.7), 0 8px 25px rgba(0, 0, 0, 0.8);
+      border: 3px solid #FFD700;
+      z-index: 400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease-in-out, transform 0.2s ease;
+      white-space: nowrap;
+      animation: pulseEarlyBtn 1.8s infinite;
+    }
+
+    .early-promo-link.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .early-promo-link.fade-out {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease-in-out;
+    }
+
+    @keyframes pulseEarlyBtn {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); box-shadow: 0 0 35px rgba(229, 57, 53, 0.95), 0 10px 30px rgba(0, 0, 0, 0.8); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+
+    .early-promo-link:hover {
+      transform: translateX(-50%) scale(1.1) !important;
+      background: linear-gradient(180deg, #FF1744 0%, #D50000 100%);
+    }
+
     /* Styling für Sprüche-Boxen */
     .quote-box {
       position: absolute;
@@ -170,7 +216,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 50px 20px 80px 20px;
+      padding: 40px 20px 75px 20px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 2.5s ease-in-out;
@@ -221,6 +267,7 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       display: inline-block;
       animation: pulseBtn 1.8s infinite;
+      margin-bottom: 30px;
     }
 
     @keyframes pulseBtn {
@@ -384,9 +431,13 @@
         font-size: 2.2rem;
       }
 
-      .app-link {
-        font-size: 1.4rem;
-        padding: 12px 28px;
+      .app-link, .early-promo-link {
+        font-size: 1.2rem;
+        padding: 8px 20px;
+      }
+
+      .early-promo-link {
+        top: calc(50% + 95px);
       }
 
       .icon-container {
@@ -411,6 +462,11 @@
     <img src="icon.png" alt="Zarq App Logo">
   </div>
 
+  <!-- Früher Hinweis unter dem Logo -->
+  <a href="https://play.google.com/store/apps/details?id=de.stefconia.zarq" target="_blank" rel="noopener noreferrer" class="early-promo-link" id="earlyPromoLink" title="Zarq App im Google Play Store herunterladen">
+    Hier gehts zur App
+  </a>
+
   <!-- Boxen für Sprüche -->
   <div id="quoteBox0" class="quote-box"></div>
   <div id="quoteBox1" class="quote-box"></div>
@@ -434,7 +490,7 @@
   <!-- RECHTSSICHERES IMPRESSUM MIT KONTAKTFORMULAR -->
   <div id="impressumPage" class="legal-page">
     <div class="legal-content">
-      <span class="back-btn" onclick="hideLegalPage('impressumPage')">&larr; Zurück zur Seite</span>
+      <span class="back-btn" onclick="hideLegalPage('impressumPage')">← Zurück zur Seite</span>
       <h2>Impressum</h2>
       
       <h3>Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)</h3>
@@ -455,15 +511,15 @@
       <form class="contact-form" action="mailto:stefconia@schirmel.com" method="post" enctype="text/plain">
         <div>
           <label for="name">Ihr Name:</label>
-          <input type="text" id="name" name="Name" required placeholder="Vor- und Nachname">
+          <input type="text" id="name" name="Name" required="" placeholder="Vor- und Nachname">
         </div>
         <div>
           <label for="email">Ihre E-Mail-Adresse:</label>
-          <input type="email" id="email" name="Absender-Email" required placeholder="name@beispiel.de">
+          <input type="email" id="email" name="Absender-Email" required="" placeholder="name@beispiel.de">
         </div>
         <div>
           <label for="message">Ihre Nachricht:</label>
-          <textarea id="message" name="Nachricht" rows="5" required placeholder="Geben Sie hier Ihre Nachricht ein..."></textarea>
+          <textarea id="message" name="Nachricht" rows="5" required="" placeholder="Geben Sie hier Ihre Nachricht ein..."></textarea>
         </div>
         <button type="submit" class="submit-btn">Nachricht absenden</button>
       </form>
@@ -485,7 +541,7 @@
   <!-- RECHTSSICHERE DATENSCHUTZERKLÄRUNG -->
   <div id="datenschutzPage" class="legal-page">
     <div class="legal-content">
-      <span class="back-btn" onclick="hideLegalPage('datenschutzPage')">&larr; Zurück zur Seite</span>
+      <span class="back-btn" onclick="hideLegalPage('datenschutzPage')">← Zurück zur Seite</span>
       <h2>Datenschutzerklärung</h2>
 
       <h3>1. Datenschutz auf einen Blick</h3>
@@ -493,18 +549,8 @@
 
       <h3>2. Hosting über GitHub Pages und Server-Log-Dateien</h3>
       <p>Diese Website wird über den Dienst GitHub Pages gehostet. Anbieter ist die GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA (nachfolgend „GitHub“).</p>
-      <p style="margin-top: 10px;">Beim Aufruf dieser Website verarbeitet GitHub technisch notwendige Verbindungsdaten, die Ihr Browser übermittelt, und speichert diese in Server-Log-Dateien. Dies sind insbesondere:</p>
-      <ul style="margin-left: 20px; margin-top: 5px;">
-        <li>IP-Adresse</li>
-        <li>Browsertyp und Browserversion</li>
-        <li>Verwendetes Betriebssystem</li>
-        <li>Referrer URL (die zuvor besuchte Seite)</li>
-        <li>Angefragte Seite bzw. Datei</li>
-        <li>Datum und Uhrzeit der Serveranfrage</li>
-      </ul>
-      <p style="margin-top: 10px;">GitHub speichert diese Daten nach eigenen Angaben insbesondere zur Gewährleistung der Sicherheit und Integrität des Dienstes. Auf diese Daten haben wir als Websitebetreiber keinen vollständigen Zugriff.</p>
+      <p style="margin-top: 10px;">Beim Aufruf dieser Website verarbeitet GitHub technisch notwendige Verbindungsdaten, die Ihr Browser übermittelt, und speichert diese in Server-Log-Dateien.</p>
       <p style="margin-top: 10px;">Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an der sicheren und technisch fehlerfreien Darstellung unserer Website.</p>
-      <p style="margin-top: 10px;"><strong>Datenübermittlung in die USA:</strong> GitHub hat seinen Sitz in den USA, daher können Daten in die USA übermittelt werden. Die Übermittlung stützt sich auf den Angemessenheitsbeschluss der EU-Kommission zum EU-US Data Privacy Framework bzw. auf EU-Standardvertragsklauseln. Weitere Informationen finden Sie in der Datenschutzerklärung von GitHub: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer" style="color: #FFD700;">GitHub General Privacy Statement</a>.</p>
 
       <h3>3. Verantwortliche Stelle</h3>
       <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:</p>
@@ -516,16 +562,16 @@
       </p>
 
       <h3>4. Kontaktformular</h3>
-      <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO).</p>
+      <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular zwecks Bearbeitung der Anfrage gespeichert.</p>
 
       <h3>5. Ihre Betroffenenrechte (Art. 15–21 DSGVO)</h3>
-      <p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten.</p>
+      <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung.</p>
 
       <h3>6. Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
-      <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde zu.</p>
+      <p>Im Falle von Verstößen steht den Betroffenen ein Beschwerderecht zu.</p>
 
       <h3>7. Cookies &amp; Tracking</h3>
-      <p>Diese Website setzt keine Tracking-Cookies, Analysedienste oder Werbenetzwerke ein. Ein Cookie-Banner ist daher technisch nicht erforderlich.</p>
+      <p>Diese Website setzt keine Tracking-Cookies ein.</p>
     </div>
   </div>
 
@@ -545,7 +591,6 @@
 
     const isMobile = window.innerWidth <= 768;
     
-    // Auf Mobilgeräten bleiben die Sprüche ganz oben und ganz unten, mit viel Abstand zum Logo
     const positions = isMobile ? [
       { top: '4%', left: '50%', transform: 'translateX(-50%)' },
       { top: '83%', left: '50%', transform: 'translate(-50%, -100%)' },
@@ -600,7 +645,7 @@
 
       setTimeout(() => {
         box.classList.remove('visible');
-      }, 16000);
+      }, 12000);
 
       setTimeout(() => {
         freePositionIndex(posIdx);
@@ -609,7 +654,7 @@
         } else if (activePositions.length === 0) {
           showEndScreen();
         }
-      }, 10000);
+      }, 14000);
     }
 
     function showEndScreen() {
@@ -620,6 +665,20 @@
       }, 800);
     }
 
+    // Timer für den frühen Button: Erscheint nach 2.5 Sekunden und bleibt exakt 40 Sekunden sichtbar
+    setTimeout(() => {
+      document.getElementById('earlyPromoLink').classList.add('visible');
+    }, 2500);
+
+    setTimeout(() => {
+      const earlyBtn = document.getElementById('earlyPromoLink');
+      if (earlyBtn) {
+        earlyBtn.classList.add('fade-out');
+        setTimeout(() => earlyBtn.remove(), 1000);
+      }
+    }, 40000);
+
+    // Start der Sprüche nach 3.5 Sekunden
     setTimeout(() => {
       runBoxLoop('quoteBox0');
       setTimeout(() => runBoxLoop('quoteBox1'), 3200);
@@ -627,7 +686,7 @@
         setTimeout(() => runBoxLoop('quoteBox2'), 6400);
         setTimeout(() => runBoxLoop('quoteBox3'), 9600);
       }
-    }, 4000);
+    }, 3500);
 
     function showLegalPage(id) {
       document.getElementById(id).style.display = 'block';
