@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Titel & Beschreibung für Google -->
+  <title>Zarq – Your Daily Dose of Sarcasm &amp; Humor App</title>
+  <meta name="description" content="Get Zarq – the Zarqasm app for Android on Google Play! New sarcastic quotes every day, dark humor and funny sayings for your daily grind.">
+  <meta name="keywords" content="Zarq, Zarqasm, Zarqasm app, sarcasm app, sarcastic quotes, demotivational quotes, dark humor, funny quotes, daily sarcasm, anti-motivation, calendar quotes, Android app, Google Play">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://stefconia.github.io/en/">
+  <link rel="alternate" hreflang="de" href="https://stefconia.github.io/">
+  <link rel="alternate" hreflang="en" href="https://stefconia.github.io/en/">
+  <link rel="alternate" hreflang="x-default" href="https://stefconia.github.io/">
+
+  <!-- Open Graph / Social Media Vorschau (WhatsApp, Facebook etc.) -->
+  <meta property="og:title" content="Zarq – Your Daily Dose of Sarcasm">
+  <meta property="og:description" content="Sarcastic quotes and dark humor delivered to your phone every day. Download now on Google Play!">
+  <meta property="og:image" content="https://stefconia.github.io/icon.png">
+  <meta property="og:url" content="https://stefconia.github.io/en/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:type" content="website">
+
+  <!-- Schema.org Strukturierte Daten für Google (App-Anzeige) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zarq - Sarcastic Quotes",
+    "operatingSystem": "Android",
+    "applicationCategory": "EntertainmentApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "installUrl": "https://play.google.com/store/apps/details?id=de.stefconia.zarq&hl=en",
+    "description": "Zarq delivers your daily dose of sarcasm and humorous quotes.",
+    "inLanguage": "en"
+  }
+  </script>
+
+  <style>
+    /* bangers-regular - latin */
+    @font-face {
+      font-display: swap;
+      font-family: 'Bangers';
+      font-style: normal;
+      font-weight: 400;
+      src: url('/bangers-v25-latin-regular.woff2') format('woff2');
+    }
+  </style>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #050505;
+      color: #ffffff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Für Suchmaschinen sichtbarer, aber visuell versteckter Text */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Container für das Logo in der Mitte */
+    .icon-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22vw;
+      height: 22vw;
+      max-width: 280px;
+      max-height: 280px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: fadeInIcon 3s ease-in-out 1s forwards;
+      z-index: 10;
+      pointer-events: none;
+      transition: width 2s ease-in-out, height 2s ease-in-out, max-width 2s ease-in-out, max-height 2s ease-in-out, z-index 0.5s;
+    }
+
+    .icon-container.enlarged {
+      width: 38vw;
+      height: 38vw;
+      max-width: 480px;
+      max-height: 480px;
+      z-index: 40;
+    }
+
+    .icon-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 30px rgba(213, 0, 0, 0.5));
+    }
+
+    @keyframes fadeInIcon {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    /* Früher Hinweis unter dem Logo (perfekt unter dem Logo platziert ohne es zu verdecken) */
+    .early-promo-link {
+      position: absolute;
+      top: calc(50% + 145px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Bangers', cursive, fantasy;
+      font-size: 2.1rem;
+      color: #ffffff;
+      background: linear-gradient(180deg, #E53935 0%, #C62828 100%);
+      padding: 10px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 25px rgba(229, 57, 53, 0.7), 0 8px 25px rgba(0, 0, 0, 0.8);
+      border: 3px solid #FFD700;
+      z-index: 400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease-in-out, transform 0.2s ease;
+      white-space: nowrap;
+      animation: pulseEarlyBtn 1.8s infinite;
+    }
+
+    .early-promo-link.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .early-promo-link.fade-out {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease-in-out;
+    }
+
+    @keyframes pulseEarlyBtn {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); box-shadow: 0 0 35px rgba(229, 57, 53, 0.95), 0 10px 30px rgba(0, 0, 0, 0.8); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+
+    .early-promo-link:hover {
+      transform: translateX(-50%) scale(1.1) !important;
+      background: linear-gradient(180deg, #FF1744 0%, #D50000 100%);
+    }
+
+    /* Styling für Sprüche-Boxen */
+    .quote-box {
+      position: absolute;
+      background: linear-gradient(135deg, rgba(30, 30, 30, 0.96), rgba(15, 15, 15, 0.96));
+      color: #ffffff;
+      padding: 16px 20px;
+      border-radius: 18px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      width: 380px;
+      max-width: 32vw;
+      font-size: 1.6rem;
+      font-weight: 800;
+      line-height: 1.3;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.2);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+      text-align: center;
+
+      -webkit-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+      word-break: normal;
+      overflow-wrap: normal;
+      white-space: normal;
+      transition: opacity 2.5s ease-in-out;
+    }
+
+    .quote-box.visible {
+      opacity: 1;
+      transform: var(--base-transform) scale(1) translateY(0) !important;
+      animation: floatQuote 4s ease-in-out infinite alternate !important;
+    }
+
+    .quote-box:not(.visible) {
+      transform: var(--base-transform) scale(0.6) translateY(20px) !important;
+    }
+
+    @keyframes floatQuote {
+      0% { transform: var(--base-transform) scale(1) translateY(0); }
+      100% { transform: var(--base-transform) scale(1) translateY(-6px); }
+    }
+
+    /* End-Screen Container */
+    .promo-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 20px 75px 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2.5s ease-in-out;
+      z-index: 50;
+    }
+
+    .promo-container.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .comic-heading {
+      font-family: 'Bangers', cursive, fantasy;
+      font-size: 4.2rem;
+      color: #FFD700;
+      text-align: center;
+      letter-spacing: 2px;
+      text-shadow: 
+        -3px -3px 0 #D32F2F,  
+         3px -3px 0 #D32F2F,
+        -3px  3px 0 #D32F2F,
+         3px  3px 0 #D32F2F,
+        -5px  0px 0 #D32F2F,
+         5px  0px 0 #D32F2F,
+         0px -5px 0 #D32F2F,
+         0px  5px 0 #D32F2F,
+         0px 12px 25px rgba(0,0,0,0.9);
+      line-height: 1.1;
+      animation: floatTitle 3.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatTitle {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.02); }
+    }
+
+    .app-link {
+      font-family: 'Bangers', cursive, fantasy;
+      font-size: 2.3rem;
+      color: #ffffff;
+      background: linear-gradient(180deg, #E53935 0%, #C62828 100%);
+      padding: 14px 42px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 25px rgba(229, 57, 53, 0.7), 0 8px 25px rgba(0, 0, 0, 0.8);
+      border: 3px solid #FFD700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-block;
+      animation: pulseBtn 1.8s infinite;
+      margin-bottom: 30px;
+    }
+
+    @keyframes pulseBtn {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.06); box-shadow: 0 0 40px rgba(229, 57, 53, 0.95), 0 10px 30px rgba(0, 0, 0, 0.8); }
+      100% { transform: scale(1); }
+    }
+
+    .app-link:hover {
+      transform: scale(1.12) !important;
+      background: linear-gradient(180deg, #FF1744 0%, #D50000 100%);
+    }
+
+    /* Footer Links – Absolut frei und klickbar am Boden */
+    footer {
+      position: fixed;
+      bottom: 8px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 300;
+      pointer-events: auto;
+      background: linear-gradient(to top, rgba(5,5,5,0.9), transparent);
+      padding-top: 10px;
+    }
+
+    footer a {
+      color: #bbbbbb;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin: 0 16px;
+      transition: color 0.2s ease;
+      font-weight: 600;
+      display: inline-block;
+      padding: 4px 8px;
+    }
+
+    footer a:hover {
+      color: #FFD700;
+      text-decoration: underline;
+    }
+
+    footer a.active {
+      color: #FFD700;
+      cursor: default;
+    }
+
+    footer .sep {
+      color: #666666;
+    }
+
+    footer .lang-switch {
+      display: inline-block;
+      margin-left: 16px;
+      padding-left: 16px;
+      border-left: 1px solid #444444;
+    }
+
+    footer .lang-switch a {
+      margin: 0 4px;
+    }
+
+    /* Inline-Seiten (Impressum, Datenschutz & Kontaktformular) */
+    .legal-page {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0a0a0a;
+      color: #dddddd;
+      z-index: 500;
+      padding: 50px 20px;
+      overflow-y: auto;
+    }
+
+    .legal-content {
+      max-width: 850px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .legal-content h2 {
+      color: #ffffff;
+      font-size: 2.2rem;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #D32F2F;
+      padding-bottom: 8px;
+    }
+
+    .legal-content h3 {
+      color: #FFD700;
+      font-size: 1.3rem;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 25px;
+      padding: 10px 22px;
+      background-color: #222222;
+      color: #ffffff;
+      border: 1px solid #444444;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #333333;
+      border-color: #FFD700;
+    }
+
+    /* Styling für das Kontaktformular */
+    .contact-form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 600px;
+    }
+
+    .contact-form label {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background-color: #1a1a1a;
+      border: 1px solid #333333;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #FFD700;
+    }
+
+    .submit-btn {
+      align-self: flex-start;
+      padding: 12px 30px;
+      background-color: #D32F2F;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #E53935;
+    }
+
+    /* Optimiertes Layout für Smartphones */
+    @media (max-width: 768px) {
+      .quote-box {
+        font-size: clamp(0.8rem, 3.2vw, 0.95rem); 
+        padding: 10px 12px;
+        width: 90vw;
+        max-width: 90vw;
+        line-height: 1.25;
+        border-radius: 12px;
+      }
+
+      .comic-heading {
+        font-size: 2.2rem;
+      }
+
+      .app-link, .early-promo-link {
+        font-size: 1.2rem;
+        padding: 8px 20px;
+      }
+
+      .early-promo-link {
+        top: calc(50% + 95px);
+      }
+
+      /* Footer auf Smartphones einzeilig & kompakt */
+      footer {
+        bottom: 0;
+        padding-bottom: 6px;
+        white-space: nowrap;
+      }
+
+      footer a {
+        font-size: 0.78rem;
+        margin: 0 2px;
+        padding: 4px 5px;
+      }
+
+      footer .lang-switch {
+        margin-left: 6px;
+        padding-left: 6px;
+      }
+
+      footer .lang-switch a {
+        margin: 0 1px;
+      }
+
+      /* Mehr Platz unten, damit der Button nicht über dem Footer liegt */
+      .promo-container {
+        padding-bottom: 110px;
+      }
+
+      .app-link {
+        margin-bottom: 0;
+      }
+
+      .icon-container {
+        width: 34vw;
+        height: 34vw;
+      }
+
+      .icon-container.enlarged {
+        width: 56vw;
+        height: 56vw;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SEO header for Google bot (invisible to users) -->
+  <h1 class="sr-only">Zarq – Sarcasm App &amp; Funny Quotes on Google Play</h1>
+
+  <!-- Icon in der Mitte -->
+  <div class="icon-container" id="iconContainer">
+    <img src="/icon.png" alt="Zarq app logo">
+  </div>
+
+  <!-- Früher Hinweis unter dem Logo -->
+  <a href="https://play.google.com/store/apps/details?id=de.stefconia.zarq&hl=en" target="_blank" rel="noopener noreferrer" class="early-promo-link" id="earlyPromoLink" title="Download the Zarq app on Google Play">
+    Get the app here
+  </a>
+
+  <!-- Boxen für Sprüche -->
+  <div id="quoteBox0" class="quote-box"></div>
+  <div id="quoteBox1" class="quote-box"></div>
+  <div id="quoteBox2" class="quote-box"></div>
+  <div id="quoteBox3" class="quote-box"></div>
+
+  <!-- End-Screen Überlagerung -->
+  <div class="promo-container" id="promoContainer">
+    <h1 class="comic-heading">Your Daily Dose of Zarqasm</h1>
+    <a class="app-link" href="https://play.google.com/store/apps/details?id=de.stefconia.zarq&hl=en" target="_blank" rel="noopener noreferrer" title="Download the Zarq app on Google Play">
+      Get the APP
+    </a>
+  </div>
+
+  <!-- Footer Links (Sofort sichtbar & klickbar) -->
+  <footer>
+    <a href="#legal-notice" onclick="showLegalPage('impressumPage')">Legal Notice</a>
+    <a href="#privacy-policy" onclick="showLegalPage('datenschutzPage')">Privacy Policy</a>
+    <span class="lang-switch">
+      <a href="/" hreflang="de" lang="de" title="Deutsch">DE</a>
+      <span class="sep">|</span>
+      <a href="/en/" hreflang="en" lang="en" class="active" aria-current="true" title="English">EN</a>
+    </span>
+  </footer>
+
+  <!-- LEGAL NOTICE (IMPRESSUM) WITH CONTACT FORM -->
+  <div id="impressumPage" class="legal-page">
+    <div class="legal-content">
+      <span class="back-btn" onclick="hideLegalPage('impressumPage')">← Back to page</span>
+      <h2>Legal Notice (Impressum)</h2>
+      <p><em>Courtesy translation. The German version is legally binding.</em></p>
+
+      <h3>Information pursuant to § 5 DDG (German Digital Services Act)</h3>
+      <p>
+        Stefan Schirmel<br>
+        Am Vorholz 6<br>
+        95709 Tröstau<br>
+        Germany
+      </p>
+
+      <h3>Contact</h3>
+      <p>
+        Email: stefconia@schirmel.com<br>
+        Or directly via the contact form below.
+      </p>
+
+      <h3>Contact form</h3>
+      <form class="contact-form" action="mailto:stefconia@schirmel.com" method="post" enctype="text/plain">
+        <div>
+          <label for="name">Your name:</label>
+          <input type="text" id="name" name="Name" required="" placeholder="First and last name">
+        </div>
+        <div>
+          <label for="email">Your email address:</label>
+          <input type="email" id="email" name="Sender-Email" required="" placeholder="name@example.com">
+        </div>
+        <div>
+          <label for="message">Your message:</label>
+          <textarea id="message" name="Message" rows="5" required="" placeholder="Enter your message here..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send message</button>
+      </form>
+
+      <h3>Responsible for content pursuant to § 18 (2) MStV</h3>
+      <p>
+        Stefan Schirmel<br>
+        Am Vorholz 6<br>
+        95709 Tröstau<br>
+        Germany
+      </p>
+
+      <h3>Consumer dispute resolution</h3>
+      <p>
+        We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.
+      </p>
+    </div>
+  </div>
+
+  <!-- PRIVACY POLICY -->
+  <div id="datenschutzPage" class="legal-page">
+    <div class="legal-content">
+      <span class="back-btn" onclick="hideLegalPage('datenschutzPage')">← Back to page</span>
+      <h2>Privacy Policy</h2>
+      <p><em>Courtesy translation. The German version is legally binding.</em></p>
+
+      <h3>1. Data protection at a glance</h3>
+      <p><strong>General information:</strong> The following notes give a simple overview of what happens to your personal data when you visit our website. Personal data is any data that can be used to identify you personally.</p>
+
+      <h3>2. Hosting via GitHub Pages and server log files</h3>
+      <p>This website is hosted via the GitHub Pages service. The provider is GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA (hereinafter "GitHub").</p>
+      <p style="margin-top: 10px;">When you access this website, GitHub processes technically necessary connection data transmitted by your browser and stores it in server log files.</p>
+      <p style="margin-top: 10px;">The legal basis is Art. 6 (1) lit. f GDPR. We have a legitimate interest in the secure and technically error-free presentation of our website.</p>
+      <p style="margin-top: 10px;">In this process, your IP address may be transferred to servers in the USA. GitHub is part of the Microsoft group of companies, which is certified under the EU-US Data Privacy Framework. The transfer is therefore based on the European Commission's adequacy decision (Art. 45 GDPR) and, additionally, on standard contractual clauses (Art. 46 GDPR).</p>
+
+      <h3>3. Controller</h3>
+      <p>The party responsible for data processing on this website is:</p>
+      <p style="margin-top: 5px;">
+        Stefan Schirmel<br>
+        Am Vorholz 6<br>
+        95709 Tröstau<br>
+        Germany<br>
+        Email: stefconia@schirmel.com
+      </p>
+
+      <h3>4. Contact form</h3>
+      <p>If you send us inquiries via the contact form or by email, the information you provide (name, email address, message) will be stored by us for the purpose of processing your inquiry and in case of follow-up questions. The form opens your email program; the data is transmitted by email.</p>
+      <p style="margin-top: 10px;">The legal basis is Art. 6 (1) lit. b GDPR if your inquiry relates to the performance of a contract or is necessary for pre-contractual measures, otherwise Art. 6 (1) lit. f GDPR (legitimate interest in the effective handling of inquiries). We do not pass your data on to third parties. The data will be deleted once your inquiry has been dealt with, unless statutory retention obligations apply.</p>
+
+      <h3>5. Your rights as a data subject (Art. 15–21 GDPR)</h3>
+      <p>You have the right at any time to obtain information about your stored personal data, to have it rectified or erased, to restrict its processing, and to data portability. You may object at any time to processing based on legitimate interests (Art. 21 GDPR) and withdraw any consent you have given with effect for the future. An email to the address above is sufficient.</p>
+
+      <h3>6. Right to lodge a complaint with the competent supervisory authority</h3>
+      <p>In the event of violations of the GDPR, data subjects have the right to lodge a complaint with a data protection supervisory authority, in particular in the member state of their habitual residence, place of work or place of the alleged infringement (Art. 77 GDPR).</p>
+
+      <h3>7. Cookies &amp; tracking</h3>
+      <p>This website does not use tracking cookies.</p>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "Your calendar is emptier than your stare on Monday morning.",
+      "No appointments in sight. The world has clearly learned to expect nothing from you.",
+      "Sunday isn't a day of rest. It's guilt's designated buffer zone.",
+      "Don't look at the clock. Every tick brings you one step closer to Monday.",
+      "Dentist appointment coming up. Had you brushed properly, you wouldn't be sweating now.",
+      "You're waiting for your second wind of productivity. It isn't waiting for you.",
+      "Your brain is in power-saving mode. Sadly, without saving any power.",
+      "The day is dragging on. Probably for good reason.",
+      "You check the clock more often than your to-do list.",
+      "If you still wanted to get something done today: good luck with the wanting."
+    ];
+
+    const isMobile = window.innerWidth <= 768;
+    
+    const positions = isMobile ? [
+      { top: '4%', left: '50%', transform: 'translateX(-50%)' },
+      { top: '88%', left: '50%', transform: 'translate(-50%, -100%)' },
+      { top: '14%', left: '50%', transform: 'translateX(-50%)' },
+      { top: 'calc(50% + 150px)', left: '50%', transform: 'translateX(-50%)' }
+    ] : [
+      { top: '6%', left: '50%', transform: 'translateX(-50%)' },
+      { top: '94%', left: '50%', transform: 'translate(-50%, -100%)' },
+      { top: '50%', left: '3%', transform: 'translateY(-50%)' },
+      { top: '50%', left: '97%', transform: 'translate(-100%, -50%)' },
+      { top: '10%', left: '5%', transform: 'translate(0, 0)' },
+      { top: '10%', left: '95%', transform: 'translate(-100%, 0)' },
+      { top: '90%', left: '5%', transform: 'translate(0, -100%)' },
+      { top: '90%', left: '95%', transform: 'translate(-100%, -100%)' }
+    ];
+
+    const MAX_RUNS = isMobile ? 5 : 7;
+    const SHOW_MS = isMobile ? 9000 : 12000;   // Anzeigedauer eines Spruchs
+    const CYCLE_MS = isMobile ? 11000 : 14000; // Zeit bis zum nächsten Spruch in derselben Box
+    let quotesShownCount = 0;
+    let currentQuoteIndex = 0;
+    let activePositions = [];
+
+    function getFreePositionIndex() {
+      const available = positions
+        .map((_, idx) => idx)
+        .filter(idx => !activePositions.includes(idx));
+
+      const chosen = available[Math.floor(Math.random() * available.length)];
+      activePositions.push(chosen);
+      return chosen;
+    }
+
+    function freePositionIndex(index) {
+      activePositions = activePositions.filter(idx => idx !== index);
+    }
+
+    function runBoxLoop(boxId) {
+      if (quotesShownCount >= MAX_RUNS) return;
+      
+      quotesShownCount++;
+      const box = document.getElementById(boxId);
+      const posIdx = getFreePositionIndex();
+      const pos = positions[posIdx];
+
+      box.style.top = pos.top;
+      box.style.left = pos.left;
+      box.style.setProperty('--base-transform', pos.transform);
+
+      box.textContent = quotes[currentQuoteIndex];
+      currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+
+      box.classList.add('visible');
+
+      setTimeout(() => {
+        box.classList.remove('visible');
+      }, SHOW_MS);
+
+      setTimeout(() => {
+        freePositionIndex(posIdx);
+        if (quotesShownCount < MAX_RUNS) {
+          runBoxLoop(boxId);
+        } else if (activePositions.length === 0) {
+          showEndScreen();
+        }
+      }, CYCLE_MS);
+    }
+
+    function showEndScreen() {
+      document.getElementById('iconContainer').classList.add('enlarged');
+
+      setTimeout(() => {
+        document.getElementById('promoContainer').classList.add('visible');
+      }, 800);
+    }
+
+    // Timer für den frühen Button: Erscheint nach 2.5 Sekunden und bleibt exakt 40 Sekunden sichtbar
+    setTimeout(() => {
+      document.getElementById('earlyPromoLink').classList.add('visible');
+    }, 2500);
+
+    setTimeout(() => {
+      const earlyBtn = document.getElementById('earlyPromoLink');
+      if (earlyBtn) {
+        earlyBtn.classList.add('fade-out');
+        setTimeout(() => earlyBtn.remove(), 1000);
+      }
+    }, 40000);
+
+    // Start der Sprüche nach 3.5 Sekunden
+    setTimeout(() => {
+      runBoxLoop('quoteBox0');
+      setTimeout(() => runBoxLoop('quoteBox1'), isMobile ? 2500 : 3200);
+      if (!isMobile) {
+        setTimeout(() => runBoxLoop('quoteBox2'), 6400);
+        setTimeout(() => runBoxLoop('quoteBox3'), 9600);
+      }
+    }, 3500);
+
+    function showLegalPage(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function hideLegalPage(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
