@@ -10,10 +10,18 @@
   <meta name="keywords" content="Zarq, Zarqasmus, Zarqasmus App, Sarkasmus App, Sarkastische Sprüche, Demotivierende Sprüche, Schwarzer Humor, Lustige Sprüche, Kalender Sprüche, Anti-Motivation, Google Play Store">
   <meta name="robots" content="index, follow">
 
+  <link rel="canonical" href="https://stefconia.github.io/">
+  <link rel="alternate" hreflang="de" href="https://stefconia.github.io/">
+  <link rel="alternate" hreflang="en" href="https://stefconia.github.io/en/">
+  <link rel="alternate" hreflang="x-default" href="https://stefconia.github.io/">
+
   <!-- Open Graph / Social Media Vorschau (WhatsApp, Facebook etc.) -->
   <meta property="og:title" content="Zarq – Deine tägliche Dosis Sarkasmus">
   <meta property="og:description" content="Täglich sarkastische Sprüche und schwarzer Humor direkt auf dein Smartphone. Jetzt im Google Play Store herunterladen!">
-  <meta property="og:image" content="icon.png">
+  <meta property="og:image" content="https://stefconia.github.io/icon.png">
+  <meta property="og:url" content="https://stefconia.github.io/">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:type" content="website">
 
   <!-- Schema.org Strukturierte Daten für Google (App-Anzeige) -->
@@ -310,6 +318,26 @@
       text-decoration: underline;
     }
 
+    footer a.active {
+      color: #FFD700;
+      cursor: default;
+    }
+
+    footer .sep {
+      color: #666666;
+    }
+
+    footer .lang-switch {
+      display: inline-block;
+      margin-left: 16px;
+      padding-left: 16px;
+      border-left: 1px solid #444444;
+    }
+
+    footer .lang-switch a {
+      margin: 0 4px;
+    }
+
     /* Inline-Seiten (Impressum, Datenschutz & Kontaktformular) */
     .legal-page {
       display: none;
@@ -440,6 +468,37 @@
         top: calc(50% + 95px);
       }
 
+      /* Footer auf Smartphones einzeilig & kompakt */
+      footer {
+        bottom: 0;
+        padding-bottom: 6px;
+        white-space: nowrap;
+      }
+
+      footer a {
+        font-size: 0.78rem;
+        margin: 0 2px;
+        padding: 4px 5px;
+      }
+
+      footer .lang-switch {
+        margin-left: 6px;
+        padding-left: 6px;
+      }
+
+      footer .lang-switch a {
+        margin: 0 1px;
+      }
+
+      /* Mehr Platz unten, damit der Button nicht über dem Footer liegt */
+      .promo-container {
+        padding-bottom: 110px;
+      }
+
+      .app-link {
+        margin-bottom: 0;
+      }
+
       .icon-container {
         width: 34vw;
         height: 34vw;
@@ -485,6 +544,11 @@
   <footer>
     <a href="#impressum" onclick="showLegalPage('impressumPage')">Impressum</a>
     <a href="#datenschutz" onclick="showLegalPage('datenschutzPage')">Datenschutzerklärung</a>
+    <span class="lang-switch">
+      <a href="/" hreflang="de" lang="de" class="active" aria-current="true" title="Deutsch">DE</a>
+      <span class="sep">|</span>
+      <a href="/en/" hreflang="en" lang="en" title="English">EN</a>
+    </span>
   </footer>
 
   <!-- RECHTSSICHERES IMPRESSUM MIT KONTAKTFORMULAR -->
@@ -551,6 +615,7 @@
       <p>Diese Website wird über den Dienst GitHub Pages gehostet. Anbieter ist die GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA (nachfolgend „GitHub“).</p>
       <p style="margin-top: 10px;">Beim Aufruf dieser Website verarbeitet GitHub technisch notwendige Verbindungsdaten, die Ihr Browser übermittelt, und speichert diese in Server-Log-Dateien.</p>
       <p style="margin-top: 10px;">Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an der sicheren und technisch fehlerfreien Darstellung unserer Website.</p>
+      <p style="margin-top: 10px;">Dabei kann Ihre IP-Adresse an Server in den USA übermittelt werden. GitHub ist Teil der Microsoft-Unternehmensgruppe, die unter dem EU-US Data Privacy Framework zertifiziert ist. Die Übermittlung stützt sich daher auf den Angemessenheitsbeschluss der EU-Kommission (Art. 45 DSGVO) bzw. ergänzend auf Standardvertragsklauseln (Art. 46 DSGVO).</p>
 
       <h3>3. Verantwortliche Stelle</h3>
       <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:</p>
@@ -562,13 +627,14 @@
       </p>
 
       <h3>4. Kontaktformular</h3>
-      <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular zwecks Bearbeitung der Anfrage gespeichert.</p>
+      <p>Wenn Sie uns per Kontaktformular oder E-Mail Anfragen zukommen lassen, werden Ihre Angaben (Name, E-Mail-Adresse, Nachricht) zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Das Formular öffnet Ihr E-Mail-Programm; die Übermittlung erfolgt per E-Mail.</p>
+      <p style="margin-top: 10px;">Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist, ansonsten Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der effektiven Bearbeitung von Anfragen). Wir geben Ihre Daten nicht an Dritte weiter. Die Daten werden gelöscht, sobald die Anfrage erledigt ist, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
 
       <h3>5. Ihre Betroffenenrechte (Art. 15–21 DSGVO)</h3>
-      <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung.</p>
+      <p>Sie haben jederzeit das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten, auf Berichtigung, Löschung und Einschränkung der Verarbeitung sowie auf Datenübertragbarkeit. Sie können der Verarbeitung auf Grundlage berechtigter Interessen jederzeit widersprechen (Art. 21 DSGVO) und eine erteilte Einwilligung mit Wirkung für die Zukunft widerrufen. Hierzu genügt eine E-Mail an die oben genannte Adresse.</p>
 
       <h3>6. Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
-      <p>Im Falle von Verstößen steht den Betroffenen ein Beschwerderecht zu.</p>
+      <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Datenschutz-Aufsichtsbehörde zu, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes (Art. 77 DSGVO).</p>
 
       <h3>7. Cookies &amp; Tracking</h3>
       <p>Diese Website setzt keine Tracking-Cookies ein.</p>
@@ -593,9 +659,9 @@
     
     const positions = isMobile ? [
       { top: '4%', left: '50%', transform: 'translateX(-50%)' },
-      { top: '83%', left: '50%', transform: 'translate(-50%, -100%)' },
+      { top: '88%', left: '50%', transform: 'translate(-50%, -100%)' },
       { top: '14%', left: '50%', transform: 'translateX(-50%)' },
-      { top: '72%', left: '50%', transform: 'translate(-50%, -100%)' }
+      { top: 'calc(50% + 150px)', left: '50%', transform: 'translateX(-50%)' }
     ] : [
       { top: '6%', left: '50%', transform: 'translateX(-50%)' },
       { top: '94%', left: '50%', transform: 'translate(-50%, -100%)' },
@@ -607,7 +673,9 @@
       { top: '90%', left: '95%', transform: 'translate(-100%, -100%)' }
     ];
 
-    const MAX_RUNS = 7;
+    const MAX_RUNS = isMobile ? 5 : 7;
+    const SHOW_MS = isMobile ? 9000 : 12000;   // Anzeigedauer eines Spruchs
+    const CYCLE_MS = isMobile ? 11000 : 14000; // Zeit bis zum nächsten Spruch in derselben Box
     let quotesShownCount = 0;
     let currentQuoteIndex = 0;
     let activePositions = [];
@@ -645,7 +713,7 @@
 
       setTimeout(() => {
         box.classList.remove('visible');
-      }, 12000);
+      }, SHOW_MS);
 
       setTimeout(() => {
         freePositionIndex(posIdx);
@@ -654,7 +722,7 @@
         } else if (activePositions.length === 0) {
           showEndScreen();
         }
-      }, 14000);
+      }, CYCLE_MS);
     }
 
     function showEndScreen() {
@@ -681,7 +749,7 @@
     // Start der Sprüche nach 3.5 Sekunden
     setTimeout(() => {
       runBoxLoop('quoteBox0');
-      setTimeout(() => runBoxLoop('quoteBox1'), 3200);
+      setTimeout(() => runBoxLoop('quoteBox1'), isMobile ? 2500 : 3200);
       if (!isMobile) {
         setTimeout(() => runBoxLoop('quoteBox2'), 6400);
         setTimeout(() => runBoxLoop('quoteBox3'), 9600);
